@@ -1,0 +1,316 @@
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url(/assets/fonts/JetBrainsMono-VariableFont_wght.ttf);
+  font-weight: 700;
+  font-style: normal;
+}
+:root {
+  --text-preset-1: normal 700 calc(32 / 16 * 1rem) / calc(42 / 16 * 1rem)
+      "JetBrains Mono",
+    sans-serif;
+  --text-preset-2: normal 700 calc(24 / 16 * 1rem) / calc(32 / 16 * 1rem)
+      "JetBrains Mono",
+    sans-serif;
+  --text-preset-3: normal 700 calc(18 / 16 * 1rem) / calc(24 / 16 * 1rem)
+      "JetBrains Mono",
+    sans-serif;
+  --text-preset-4: normal 700 calc(16 / 16 * 1rem) / calc(20 / 16 * 1rem)
+      "JetBrains Mono",
+    sans-serif;
+
+  --green-200: hsl(127deg 100% 82%);
+  --yellow-300: hsl(41deg 91% 68%);
+  --orange-400: hsl(13deg 95% 66%);
+  --red-500: hsl(0deg 91% 63%);
+
+  --grey-200: hsl(252deg 11% 91%);
+  --grey-600: hsl(251deg 9% 53%);
+  --grey-700: hsl(248deg 5% 34%);
+  --grey-800: hsl(247deg 11% 15%);
+  --grey-850: hsl(248deg 15% 11%);
+  --grey-950: hsl(255deg 22% 4%);
+
+  /* spacing */
+  --spacing-base: 8;
+  --spacing-100: calc(var(--spacing-base) / 16 * 1rem);
+  --spacing-200: calc(var(--spacing-100) * 2);
+  --spacing-300: calc(var(--spacing-100) * 3);
+  --spacing-400: calc(var(--spacing-100) * 4);
+  --spacing-700: calc(var(--spacing-100) * 7);
+  --spacing-1000: calc(var(--spacing-100) * 10);
+  --spacing-1300: calc(var(--spacing-100) * 13);
+  --spacing-1600: calc(var(--spacing-100) * 16);
+  --spacing-2000: calc(var(--spacing-100) * 20);
+  --spacing-2200: calc(var(--spacing-100) * 22);
+  --spacing-2300: calc(var(--spacing-100) * 23);
+}
+
+body {
+  background-color: var(--grey-950);
+  padding-inline: var(--spacing-200);
+  padding-block: calc(65 / 16 * 1rem) calc(63 / 16 * 1rem);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  appearance: none;
+  border: none;
+}
+
+.password-generator {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-200);
+}
+
+.password-generator__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-200);
+}
+
+.password-generator__heading {
+  font: var(--text-preset-4);
+  color: var(--grey-600);
+  text-align: center;
+}
+
+.password-generator__output {
+  padding: var(--spacing-200);
+  background-color: var(--grey-800);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.password-generator__output-content {
+  color: var(--grey-700);
+  font: var(--text-preset-2);
+}
+
+.password-generator__input {
+  padding: var(--spacing-200);
+  background-color: var(--grey-800);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-400);
+}
+
+.password-generator__input-range-group {
+  display: grid;
+  grid-template-areas:
+    "label output"
+    "range range";
+  gap: var(--spacing-100) 0;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.password-generator__input-range-label {
+  grid-area: label;
+  color: var(--grey-200);
+  font: var(--text-preset-4);
+}
+
+.password-generator__input-range-output {
+  grid-area: output;
+  color: var(--green-200);
+  font: var(--text-preset-2);
+  margin-inline-end: var(--spacing-200);
+}
+
+#password-generator__range-input {
+  grid-area: range;
+  -webkit-appearance: none;
+  appearance: none;
+  margin-block: calc(10 / 16 * 1rem);
+  background-color: var(--grey-850);
+  background-image: linear-gradient(var(--green-200), var(--green-200));
+  background-size: 0% 100%;
+  background-repeat: no-repeat;
+
+  &.active {
+    &::-webkit-slider-runnable-track {
+      -webkit-appearance: none;
+      box-shadow: none;
+      border: none;
+      background: transparent;
+    }
+
+    &::-moz-range-track {
+      box-shadow: none;
+      border: none;
+      background: transparent;
+    }
+  }
+
+  &::-webkit-slider-runnable-track {
+    height: var(--spacing-100);
+  }
+
+  &::-moz-range-track {
+    height: var(--spacing-100);
+  }
+
+  &::-moz-range-thumb {
+    --size: 28;
+    -webkit-appearance: none;
+    appearance: none;
+    width: calc(var(--size) / 16 * 1rem);
+    margin-block-start: calc(10 / 16 * -1rem);
+    aspect-ratio: 1 / 1;
+    background-color: var(--grey-200);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  &::-webkit-slider-thumb {
+    --size: 28;
+    -webkit-appearance: none;
+    appearance: none;
+    width: calc(var(--size) / 16 * 1rem);
+    margin-block-start: calc(10 / 16 * -1rem);
+    aspect-ratio: 1 / 1;
+    background-color: var(--grey-200);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+}
+
+.password-generator__input-checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-200);
+}
+
+.password-generator__input-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-200);
+  position: relative;
+
+  &:has(:checked) {
+    &::before {
+      content: url(/assets/images/icon-check.svg);
+      width: calc(20 / 16 * 1rem);
+      height: auto;
+      left: calc(3.5 / 16 * 1rem);
+      transform: translateY(calc(1 / 16 * 1rem));
+      position: absolute;
+      pointer-events: none;
+    }
+  }
+}
+
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  width: calc(20 / 16 * 1rem);
+  aspect-ratio: 1 / 1;
+  border: calc(2 / 16 * 1rem) solid var(--grey-200);
+
+  &:checked {
+    background-color: var(--green-200);
+    border-color: transparent;
+  }
+}
+
+.password-generator__input-checkbox-row > label {
+  font: var(--text-preset-4);
+  color: var(--grey-200);
+}
+
+.password-generator__input-button-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-200);
+}
+
+.password-generator__input-strength-placeholder {
+  padding: calc(14 / 16 * 1rem) var(--spacing-200);
+  display: flex;
+  background-color: var(--grey-850);
+  justify-content: space-between;
+  align-items: center;
+}
+
+.password-generator__input-strength-text {
+  color: var(--grey-600);
+  font: var(--text-preset-4);
+}
+
+.password-generator__input-strength-output {
+  color: var(--grey-200);
+  font: var(--text-preset-3);
+  margin-inline-start: auto;
+}
+
+.password-generator__input-strength-indicator {
+  margin-inline-start: calc(10 / 16 * 1rem);
+  display: flex;
+  align-items: stretch;
+  gap: var(--spacing-100);
+  color: var(--grey-200);
+
+  &.easy {
+    color: var(--green-200);
+    & > span.active {
+      background-color: currentColor;
+      border-color: currentColor;
+    }
+  }
+
+  &.regular {
+    color: var(--yellow-300);
+    & > span.active {
+      background-color: currentColor;
+      border-color: currentColor;
+    }
+  }
+
+  &.medium {
+    color: var(--orange-400);
+    & > span.active {
+      background-color: currentColor;
+      border-color: currentColor;
+    }
+  }
+
+  &.strong {
+    color: var(--red-500);
+    & > span.active {
+      background-color: currentColor;
+      border-color: currentColor;
+    }
+  }
+}
+
+.password-generator__input-strength-indicator > span {
+  flex: 0 0 calc(10 / 16 * 1rem);
+  border: calc(2 / 16 * 1rem) solid var(--grey-200);
+  height: calc(28 / 16 * 1rem);
+}
+
+.password-generator__input-strength-button {
+  display: flex;
+  background-color: var(--green-200);
+  color: var(--grey-800);
+  padding-block: calc(18 / 16 * 1rem);
+  font: var(--text-preset-4);
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-200);
+}
