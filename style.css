@@ -250,7 +250,8 @@ input[type="checkbox"] {
   appearance: none;
   background-color: transparent;
   width: calc(20 / 16 * 1rem);
-  aspect-ratio: 1 / 1;
+  height: calc(20 / 16 * 1rem);
+  /* aspect-ratio: 1 / 1; */
   border: calc(2 / 16 * 1rem) solid var(--grey-200);
 
   &:checked {
