@@ -18,6 +18,8 @@
       "JetBrains Mono",
     sans-serif;
 
+  --white: hsl(0deg 100% 100%);
+
   --green-200: hsl(127deg 100% 82%);
   --yellow-300: hsl(41deg 91% 68%);
   --orange-400: hsl(13deg 95% 66%);
@@ -59,7 +61,8 @@ body {
   padding: 0;
 }
 
-img {
+img,
+svg {
   max-width: 100%;
   display: block;
 }
@@ -98,6 +101,10 @@ button {
 .password-generator__output-content {
   color: var(--grey-700);
   font: var(--text-preset-2);
+
+  &.active {
+    color: var(--grey-200);
+  }
 }
 
 .password-generator__input {
@@ -106,6 +113,19 @@ button {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-400);
+}
+
+.password-generator__output-img-wrapper {
+  background-color: transparent;
+
+  & > svg {
+    fill: var(--green-200);
+    transition: fill 0.5s, stroke 0.5s;
+  }
+
+  & > svg:hover {
+    fill: var(--white);
+  }
 }
 
 .password-generator__input-range-group {
@@ -141,6 +161,15 @@ button {
   background-size: 0% 100%;
   background-repeat: no-repeat;
 
+  &:hover::-webkit-slider-thumb {
+    background-color: var(--grey-850);
+    border: 2px solid var(--green-200);
+  }
+  &:hover::-moz-range-thumb {
+    background-color: var(--grey-850);
+    border: 2px solid var(--green-200);
+  }
+
   &.active {
     &::-webkit-slider-runnable-track {
       -webkit-appearance: none;
@@ -174,6 +203,7 @@ button {
     background-color: var(--grey-200);
     border-radius: 50%;
     cursor: pointer;
+    transition: background-color 0.5s, border-color 0.5s;
   }
 
   &::-webkit-slider-thumb {
@@ -186,6 +216,7 @@ button {
     background-color: var(--grey-200);
     border-radius: 50%;
     cursor: pointer;
+    transition: background-color 0.5s, border-color 0.5s;
   }
 }
 
@@ -225,6 +256,11 @@ input[type="checkbox"] {
   &:checked {
     background-color: var(--green-200);
     border-color: transparent;
+  }
+
+  &:active,
+  &:hover {
+    border-color: var(--green-200);
   }
 }
 
@@ -313,4 +349,30 @@ input[type="checkbox"] {
   justify-content: center;
   align-items: center;
   gap: var(--spacing-200);
+  transition: background-color 0.5s, color 0.5s;
+
+  &:not([disabled]):hover {
+    background-color: var(--grey-800);
+    color: var(--green-200);
+    box-shadow: 0 0 0 calc(2 / 16 * 1rem) var(--green-200) inset;
+  }
+}
+
+.bubble {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--green-200);
+  color: var(--grey-850);
+  font: var(--text-preset-4);
+  display: flex;
+  padding-block: var(--spacing-100);
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-100%);
+  transition: transform 0.5s;
+  &.active {
+    transform: translateY(0);
+  }
 }

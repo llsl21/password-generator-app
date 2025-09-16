@@ -1,9 +1,26 @@
 const NOT_APPLICABLE = "n/a";
+const STRENGTH = [NOT_APPLICABLE, "easy", "regular", "medium", "strong"];
 let rangeValue;
+const options = {
+  uppercase: false,
+  lowercase: false,
+  number: false,
+  symbol: false,
+};
+const LOWER_ALPHABET = Array.from(
+  { length: "z".codePointAt(0) - "a".codePointAt(0) + 1 },
+  (_, index) => String.fromCodePoint("a".codePointAt(0) + index)
+).join("");
+const UPPER_ALPHABET = LOWER_ALPHABET.toUpperCase();
+const NUMBER = "0123456789";
+const SYMBOL = "@#$%^&*!~+_-[]¥/:";
 
 const rangeInput = document.getElementById("password-generator__range-input");
 const rangeOutput = document.querySelector(
   ".password-generator__input-range-output"
+);
+const clipImgButton = document.querySelector(
+  ".password-generator__output-img-wrapper"
 );
 const checkBoxes = document.querySelectorAll('input[type="checkbox"]');
 const passwordStrengthOutput = document.querySelector(
@@ -15,7 +32,71 @@ const passwordStrengthIndicator = document.querySelector(
 const indicators = document.querySelectorAll(
   ".password-generator__input-strength-indicator > *"
 );
-const STRENGTH = [NOT_APPLICABLE, "easy", "regular", "medium", "strong"];
+const generateButton = document.querySelector(
+  ".password-generator__input-strength-button"
+);
+const passwordOutput = document.querySelector(
+  ".password-generator__output-content"
+);
+const bubble = document.querySelector(".bubble");
+
+async function writeClipboardText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    showUpBubble();
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+clipImgButton.addEventListener("click", (ev) => {
+  writeClipboardText(passwordOutput.textContent);
+});
+
+function showUpBubble() {
+  bubble.removeAttribute("hidden");
+  bubble.classList.add("active");
+  setTimeout(() => {
+    bubble.setAttribute("hidden", "");
+    bubble.classList.remove("active");
+  }, 3000);
+}
+
+function syncOptionFlagWithStringToUse(option) {
+  let characterToUse = "";
+  switch (option) {
+    case "uppercase":
+      characterToUse = UPPER_ALPHABET;
+      break;
+    case "lowercase":
+      characterToUse = LOWER_ALPHABET;
+      break;
+    case "number":
+      characterToUse = NUMBER;
+      break;
+    case "symbol":
+      characterToUse = SYMBOL;
+      break;
+  }
+  return characterToUse;
+}
+
+generateButton.addEventListener("click", (ev) => {
+  if (!validateInputs()) return;
+  const rangeValue = parseInt(rangeInput.value);
+  let characterToGeneratePassword = "";
+  let generatedPassword = "";
+  for (const option in options) {
+    if (!options[option]) continue;
+    characterToGeneratePassword += syncOptionFlagWithStringToUse(option);
+  }
+
+  for (let i = 0; i < rangeValue; i++) {
+    const num = Math.floor(Math.random() * characterToGeneratePassword.length);
+    generatedPassword += characterToGeneratePassword[num];
+  }
+  passwordOutput.textContent = generatedPassword;
+});
 
 function getIndicators(num) {
   const indicatorsToUse = [];
@@ -55,16 +136,25 @@ function validateInputs() {
 }
 
 function displayPasswordStrength() {
-  const strength = calculatePasswordStrength();
+  let strength = calculatePasswordStrength();
+  if (rangeValue === 0) strength = NOT_APPLICABLE;
   if (!STRENGTH.includes(strength)) return;
 
   if (strength === NOT_APPLICABLE) {
     passwordStrengthOutput.textContent = "";
+    passwordOutput.classList.remove("active");
+    generateButton.setAttribute("disabled", "");
   } else {
     passwordStrengthOutput.textContent = strength.toUpperCase();
+    passwordOutput.classList.add("active");
+    generateButton.removeAttribute("disabled");
   }
   addStrengthClassToIndicatorParent(strength);
   activateIndicators(STRENGTH.indexOf(strength));
+}
+
+function syncOptionFlagWithCheckStatus(value, checked) {
+  options[value] = checked;
 }
 
 function calculatePasswordStrength() {
@@ -76,13 +166,10 @@ function calculatePasswordStrength() {
     4: "strong",
   };
 
-  //   if (!validateInputs()) {
-  //     passwordStrengthOutput.textContent = "";
-  //     resetIndicatorParent();
-  //     return;
-  //   }
-
   const checkedCount = Array.from(checkBoxes).reduce((count, current) => {
+    syncOptionFlagWithCheckStatus(current.value, current.checked);
+    console.log(options);
+
     return (current.checked ? 1 : 0) + count;
   }, 0);
 
@@ -114,7 +201,7 @@ function initRangeInput() {
     e.target.style.backgroundSize = `${lengthRatio}% 100%`;
     rangeOutput.textContent = e.target.value;
     rangeValue = parseInt(e.target.value);
-    handleCheckBoxClick();
+    displayPasswordStrength();
   });
 }
 
