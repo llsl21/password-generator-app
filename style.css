@@ -294,12 +294,16 @@ input[type="checkbox"] {
   color: var(--grey-200);
   font: var(--text-preset-3);
   margin-inline-start: auto;
+  margin-inline-end: calc(10 / 16 * 1rem);
 }
 
 .password-generator__input-strength-indicator {
-  margin-inline-start: calc(10 / 16 * 1rem);
+  margin-inline-start: auto;
   display: flex;
+  width: 100%;
+  justify-content: end;
   align-items: stretch;
+
   gap: var(--spacing-100);
   color: var(--grey-200);
 
