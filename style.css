@@ -281,7 +281,6 @@ input[type="checkbox"] {
   padding: calc(14 / 16 * 1rem) var(--spacing-200);
   display: flex;
   background-color: var(--grey-850);
-  justify-content: space-between;
   align-items: center;
 }
 
@@ -298,9 +297,8 @@ input[type="checkbox"] {
 }
 
 .password-generator__input-strength-indicator {
-  margin-inline-start: auto;
   display: flex;
-  width: 100%;
+  flex: 0 0 calc(64 / 16 * 1rem);
   justify-content: end;
   align-items: stretch;
 
