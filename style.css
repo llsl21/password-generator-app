@@ -421,6 +421,7 @@ input[type="checkbox"] {
     font: var(--text-preset-3);
   }
   .password-generator__input-range-output {
+    margin-inline-end: revert;
     font: var(--text-preset-1);
   }
   .password-generator__input-range-group {
