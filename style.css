@@ -355,10 +355,19 @@ input[type="checkbox"] {
   gap: var(--spacing-200);
   transition: background-color 0.5s, color 0.5s;
 
+  & > svg {
+    transition: fill 0.5s;
+    fill: var(--grey-800);
+  }
+
   &:not([disabled]):hover {
     background-color: var(--grey-800);
     color: var(--green-200);
     box-shadow: 0 0 0 calc(2 / 16 * 1rem) var(--green-200) inset;
+
+    & > svg {
+      fill: var(--green-200);
+    }
   }
 }
 
@@ -378,5 +387,62 @@ input[type="checkbox"] {
   transition: transform 0.5s;
   &.active {
     transform: translateY(0);
+  }
+}
+
+@media (width >= calc(768 / 16 * 1rem)) {
+  body {
+    padding-block: calc(133 / 16 * 1rem) calc(195 / 16 * 1rem);
+  }
+  .password-generator {
+    gap: var(--spacing-400);
+    max-width: calc(540 / 16 * 1rem);
+    margin-inline: auto;
+  }
+  .password-generator__heading {
+    font: var(--text-preset-2);
+  }
+
+  .password-generator__wrapper {
+    gap: var(--spacing-300);
+  }
+  .password-generator__output {
+    padding: var(--spacing-200) var(--spacing-400);
+  }
+  .password-generator__output-content {
+    font: var(--text-preset-1);
+  }
+
+  .password-generator__input {
+    padding: var(--spacing-300) var(--spacing-400) calc(41 / 16 * 1rem);
+  }
+
+  .password-generator__input-range-label {
+    font: var(--text-preset-3);
+  }
+  .password-generator__input-range-output {
+    font: var(--text-preset-1);
+  }
+  .password-generator__input-range-group {
+    gap: var(--spacing-200) 0;
+  }
+  .password-generator__input-checkbox-row {
+    gap: 0 var(--spacing-300);
+  }
+  .password-generator__input-checkbox-row > label {
+    font: var(--text-preset-3);
+  }
+  .password-generator__input-strength-text {
+    font: var(--text-preset-3);
+  }
+  .password-generator__input-strength-placeholder {
+    padding: var(--spacing-300) var(--spacing-400);
+  }
+  .password-generator__input-button-group {
+    gap: var(--spacing-400);
+  }
+  .password-generator__input-strength-button {
+    font: var(--text-preset-3);
+    padding-block: var(--spacing-300);
   }
 }

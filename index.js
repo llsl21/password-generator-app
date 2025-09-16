@@ -158,7 +158,7 @@ function syncOptionFlagWithCheckStatus(value, checked) {
 }
 
 function calculatePasswordStrength() {
-  const map = {
+  const checkMap = {
     0: NOT_APPLICABLE,
     1: "easy",
     2: "regular",
@@ -173,7 +173,7 @@ function calculatePasswordStrength() {
     return (current.checked ? 1 : 0) + count;
   }, 0);
 
-  return map[checkedCount];
+  return checkMap[checkedCount];
 }
 
 function handleCheckBoxClick(ev) {
